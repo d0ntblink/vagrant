@@ -1,0 +1,66 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.define "trusty32" do |vm1|
+         vm1.vm.hostname = "trusty32"  
+         vm1.vm.box = "ubuntu/trusty32"
+         vm1.vm.network "private_network", ip: "192.168.50.4"
+         vm1.vm.provider "virtualbox" do |vb|
+             vb.gui = true
+             vb.memory = "1024"
+             vb.cpus = "1"
+         end
+         vm1.vm.provision "shell", run: "always", inline: <<-SHELL
+             name=$(hostname)
+             echo "This is $name and my IPs are :"
+             ifconfig | grep "inet addr"
+         SHELL
+     end
+     config.vm.define "centos" do |vm3|
+         vm3.vm.hostname = "centos"  
+         vm3.vm.box = "generic/centos7"
+         vm3.vm.network "private_network", ip: "192.168.50.6"
+         vm3.vm.provider "virtualbox" do |vb|
+             vb.gui = true
+             vb.memory = "1024"
+             vb.cpus = "1"
+         end
+         vm3.vm.provision "shell", run: "always", inline: <<-SHELL
+             name=$(hostname)
+             echo "This is $name and my IPs are :"
+            #  ifconfig | grep "inet addr"
+         SHELL
+    end
+    config.vm.define "bentoubuntu16" do |vm4|
+         vm4.vm.hostname = "bentoubuntu16"  
+         vm4.vm.box = "bento/ubuntu-16.04"
+         vm4.vm.network "private_network", ip: "192.168.50.7"
+         vm4.vm.provider "virtualbox" do |vb|
+             vb.gui = true
+             vb.memory = "1024"
+             vb.cpus = "1"
+         end
+         vm4.vm.provision "shell", run: "always", inline: <<-SHELL
+             name=$(hostname)
+             echo "This is $name and my IPs are :"
+             ifconfig | grep "inet addr"
+         SHELL
+     end
+     config.vm.define "bentoubuntu14" do |vm2|
+         vm2.vm.hostname = "bentoubuntu14"  
+         vm2.vm.box = "bento/ubuntu-14.04"
+         vm2.vm.network "private_network", ip: "192.168.50.5"
+         vm2.vm.provider "virtualbox" do |vb|
+             vb.gui = true
+             vb.memory = "1024"
+             vb.cpus = "1"
+         end
+         vm2.vm.provision "shell", run: "always", inline: <<-SHELL
+             name=$(hostname)
+             echo "This is $name and my IPs are :"
+             ifconfig | grep "inet addr"
+         SHELL
+     end  
+ end
+ 
